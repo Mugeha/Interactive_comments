@@ -10,11 +10,13 @@ const App = () => {
   return (
     <>
     <main className="app">
-      <h1 className="title">💬 Interactive Comments Section</h1>
+      {/* <h1 className="title">💬 Interactive Comments Section</h1> */}
 
       {comments.map((comment) => (
         <div key={comment.id} className="comment-box">
           <div className="comment-header">
+          {/* <span className="username">{comment.user.image.webp}</span> */}
+
             <span className="username">@{comment.user.username}</span>
             <span className="created-at">{comment.createdAt}</span>
           </div>

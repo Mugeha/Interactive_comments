@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useComments } from '../Context/CommentsContext'; // Access addComment + current user
 import data from '../Data/data.json'; // Just to get current user info (you can lift this later)
+import '../App.css';
 
 const AddComment = () => {
   const { addComment } = useComments(); // Grab addComment function from context
@@ -16,20 +17,20 @@ const AddComment = () => {
   };
 
   return (
-    <form className="add-comment" onSubmit={handleSubmit}>
-    <img
-      src={data.currentUser.image.png}
-      alt="user"
-      className="avatar"
-    />
-    <textarea
-      className="textarea"
-      placeholder="Add a comment..."
-      value={newComment}
-      onChange={(e) => setNewComment(e.target.value)}
-    />
-    <button type="submit" className="send-btn">Send</button>
-  </form>
+      <form className="add-comment" onSubmit={handleSubmit}>
+      <img
+        src={data.currentUser.image.png}
+        alt="user"
+        className="avatar"
+      />
+      <textarea
+        className="textarea"
+        placeholder="Add a comment..."
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+      <button type="submit" className="send-btn">Send</button>
+    </form>
 
   );
 };
