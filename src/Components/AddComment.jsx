@@ -16,34 +16,20 @@ const AddComment = () => {
   };
 
   return (
-    <form
-  onSubmit={handleSubmit}
-  className="bg-white p-4 mt-6 rounded-md shadow-md flex flex-col md:flex-row items-start md:items-center gap-4"
->
-  {/* 🖼 User image on the left */}
-  <img
-    src={data.currentUser.image.png}
-    alt="user"
-    className="w-10 h-10 rounded-full object-cover"
-  />
-
-  {/* 📝 Textarea grows */}
-  <textarea
-    className="flex-1 border border-gray-300 rounded-md p-3 w-full resize-none text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-    rows="3"
-    placeholder="Add a comment..."
-    value={content}
-    onChange={(e) => setContent(e.target.value)}
-  />
-
-  {/* 📩 Submit button */}
-  <button
-    type="submit"
-    className="bg-blue-500 text-white px-6 py-2 rounded-md text-sm font-semibold hover:bg-blue-600 transition"
-  >
-    Send
-  </button>
-</form>
+    <form className="add-comment" onSubmit={handleSubmit}>
+    <img
+      src={data.currentUser.image.png}
+      alt="user"
+      className="avatar"
+    />
+    <textarea
+      className="textarea"
+      placeholder="Add a comment..."
+      value={newComment}
+      onChange={(e) => setNewComment(e.target.value)}
+    />
+    <button type="submit" className="send-btn">Send</button>
+  </form>
 
   );
 };
