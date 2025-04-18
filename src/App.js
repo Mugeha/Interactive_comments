@@ -1,7 +1,7 @@
 // App.js
 import React from 'react';
 import { useComments } from './Context/CommentsContext';
-import './App.css'; // ✅ normal CSS file
+import './App.css'; 
 
 const App = () => {
   const { comments } = useComments();
