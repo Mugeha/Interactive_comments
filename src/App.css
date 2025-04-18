@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
-}
+/* App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f6fa;
   min-height: 100vh;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.comment-box {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.comment-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+  color: #333;
+}
+
+.created-at {
+  font-size: 12px;
+  color: #888;
+}
+
+.content {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.score {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+/* AddComment.css */
+
+.add-comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.textarea {
+  flex: 1;
+  resize: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  min-height: 80px;
+  outline: none;
+}
+
+.send-btn {
+  background-color: hsl(238, 40%, 52%);
   color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.send-btn:hover {
+  background-color: hsl(239, 57%, 65%);
 }
