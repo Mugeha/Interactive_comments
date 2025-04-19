@@ -6,33 +6,54 @@ import { useComments } from '../Context/CommentsContext';
 const CommentCard = ({ comment, isReply = false }) => {
   const { comments, setComments, deleteComment } = useComments();
   const isCurrentUser = comment.user.username === data.currentUser.username;
+
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replyContent, setReplyContent] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  // EDIT STATE
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
 
-  // Recursive update function
+  const [userVote, setUserVote] = useState(0); // 0 = no vote, 1 = upvoted, -1 = downvoted
+
   const updateCommentContent = (commentsArr, commentId, newContent) => {
     return commentsArr.map((c) => {
       if (c.id === commentId) {
         return { ...c, content: newContent };
-      } else if (c.replies && c.replies.length > 0) {
-        return {
-          ...c,
-          replies: updateCommentContent(c.replies, commentId, newContent),
-        };
+      } else if (c.replies?.length > 0) {
+        return { ...c, replies: updateCommentContent(c.replies, commentId, newContent) };
       }
       return c;
     });
   };
 
+  const updateCommentScore = (commentsArr, commentId, delta) => {
+    return commentsArr.map((c) => {
+      if (c.id === commentId) {
+        return { ...c, score: c.score + delta };
+      } else if (c.replies?.length > 0) {
+        return { ...c, replies: updateCommentScore(c.replies, commentId, delta) };
+      }
+      return c;
+    });
+  };
+
+  const handleUpvote = () => {
+    if (userVote === 1) return; // already upvoted
+    const delta = userVote === -1 ? 2 : 1;
+    setComments(updateCommentScore(comments, comment.id, delta));
+    setUserVote(1);
+  };
+
+  const handleDownvote = () => {
+    if (userVote === -1) return; // already downvoted
+    const delta = userVote === 1 ? -2 : -1;
+    setComments(updateCommentScore(comments, comment.id, delta));
+    setUserVote(-1);
+  };
+
   const handleEditSubmit = () => {
     const trimmed = editContent.trim();
     if (trimmed === '') return;
-
     const updated = updateCommentContent(comments, comment.id, trimmed);
     setComments(updated);
     setIsEditing(false);
@@ -45,11 +66,8 @@ const CommentCard = ({ comment, isReply = false }) => {
           ...c,
           replies: [...c.replies, newReply],
         };
-      } else if (c.replies && c.replies.length > 0) {
-        return {
-          ...c,
-          replies: addReplyToComment(c.replies, commentId, newReply),
-        };
+      } else if (c.replies?.length > 0) {
+        return { ...c, replies: addReplyToComment(c.replies, commentId, newReply) };
       }
       return c;
     });
@@ -98,7 +116,9 @@ const CommentCard = ({ comment, isReply = false }) => {
           />
         ) : (
           <p>
-            {comment.replyingTo && <span className="mention">@{comment.replyingTo} </span>}
+            {comment.replyingTo && (
+              <span className="mention">@{comment.replyingTo} </span>
+            )}
             {comment.content}
           </p>
         )}
@@ -106,9 +126,9 @@ const CommentCard = ({ comment, isReply = false }) => {
 
       <div className="comment-footer">
         <div className="score-box">
-          <button className="score-btn">+</button>
+          <button className="score-btn" onClick={handleUpvote}>+</button>
           <span className="score">{comment.score}</span>
-          <button className="score-btn">-</button>
+          <button className="score-btn" onClick={handleDownvote}>-</button>
         </div>
 
         <div className="action-buttons">
@@ -143,7 +163,7 @@ const CommentCard = ({ comment, isReply = false }) => {
         </div>
       )}
 
-      {comment.replies && comment.replies.length > 0 && (
+      {comment.replies?.length > 0 && (
         <div className="replies-thread">
           {comment.replies.map((reply) => (
             <CommentCard key={reply.id} comment={reply} isReply={true} />

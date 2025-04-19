@@ -60,16 +60,35 @@
     border-radius: 8px;
   }
   
-  .score-btn {
+ /* Add hover + active effect to score buttons */
+.score-btn {
     background: none;
     border: none;
     font-size: 1.2rem;
     color: #64748b;
     cursor: pointer;
+    transition: transform 0.1s ease, color 0.2s ease;
   }
+  .score-btn:hover {
+    color: #5357B6;
+    transform: scale(1.2);
+  }
+  
+  .score-btn:active {
+    transform: scale(0.95);
+  }
+  .score-btn:focus-visible,
+.reply-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.3);
+  border-radius: 4px;
+}
+
   
   .score {
     font-weight: bold;
+    color: #5357B6;
+
   }
   
   .action-buttons button {
@@ -80,8 +99,19 @@
     margin-left: 0.5rem;
   }
   
-  .reply-btn {
+  /* Add similar feedback to the reply button */
+.reply-btn {
     color: #5357B6;
+    transition: transform 0.1s ease, color 0.2s ease;
+  }
+  
+  .reply-btn:hover {
+    color: #3843d0;
+    transform: scale(1.05);
+  }
+  
+  .reply-btn:active {
+    transform: scale(0.95);
   }
   
   .delete-btn {
