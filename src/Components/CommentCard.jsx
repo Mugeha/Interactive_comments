@@ -12,7 +12,6 @@ const CommentCard = ({ comment, isReply = false }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
-
   const [userVote, setUserVote] = useState(0); // 0 = no vote, 1 = upvoted, -1 = downvoted
 
   const updateCommentContent = (commentsArr, commentId, newContent) => {
@@ -38,14 +37,14 @@ const CommentCard = ({ comment, isReply = false }) => {
   };
 
   const handleUpvote = () => {
-    if (userVote === 1) return; // already upvoted
+    if (userVote === 1) return;
     const delta = userVote === -1 ? 2 : 1;
     setComments(updateCommentScore(comments, comment.id, delta));
     setUserVote(1);
   };
 
   const handleDownvote = () => {
-    if (userVote === -1) return; // already downvoted
+    if (userVote === -1) return;
     const delta = userVote === 1 ? -2 : -1;
     setComments(updateCommentScore(comments, comment.id, delta));
     setUserVote(-1);
@@ -59,12 +58,13 @@ const CommentCard = ({ comment, isReply = false }) => {
     setIsEditing(false);
   };
 
+  // ✅ Updated with fallback to [] for c.replies
   const addReplyToComment = (commentsArr, commentId, newReply) => {
     return commentsArr.map((c) => {
       if (c.id === commentId) {
         return {
           ...c,
-          replies: [...c.replies, newReply],
+          replies: [...(c.replies || []), newReply],
         };
       } else if (c.replies?.length > 0) {
         return { ...c, replies: addReplyToComment(c.replies, commentId, newReply) };
