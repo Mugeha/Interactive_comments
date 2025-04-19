@@ -163,6 +163,15 @@
     background: hsl(357, 100%, 70%);
     color: white;
   }
+  .edit-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    resize: none;
+    border: 1px solid #ccc;
+  }
+  
   
   
   
