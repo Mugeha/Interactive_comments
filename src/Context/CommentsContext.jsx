@@ -2,48 +2,67 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // 2. Import the starter data (the one from Frontend Mentor)
-// This contains comments and the current logged-in user
 import data from '../Data/data.json';
 
-// 3. Create a context object – this is like creating a box where we'll store and share data
+// 3. Create a context object
 const CommentsContext = createContext();
 
-// 4. Create a context provider component – this wraps your app and provides the comment state
+// 4. Provider to wrap the app
 export const CommentsProvider = ({ children }) => {
-  // 5. Initialize state: try to load from localStorage first, fallback to starter data
   const [comments, setComments] = useState(() => {
-    const local = localStorage.getItem('comments'); // Check local storage
-    return local ? JSON.parse(local) : data.comments; // Use local if exists, else use default
+    const local = localStorage.getItem('comments');
+    return local ? JSON.parse(local) : data.comments;
   });
 
-  // 6. Save updated comments to localStorage whenever comments change
+  // 5. Save to localStorage on comment change
   useEffect(() => {
     localStorage.setItem('comments', JSON.stringify(comments));
   }, [comments]);
 
-
-  // 🧠 After useEffect, add this function
-const addComment = (content) => {
-  const newComment = {
-    id: Date.now(), // Unique-ish ID
-    content: content,
-    createdAt: 'just now',
-    score: 0,
-    user: data.currentUser, // Grabbing current user from starter data
-    replies: [],
+  // 6. Add new comment (top-level)
+  const addComment = (content) => {
+    const newComment = {
+      id: Date.now(),
+      content,
+      createdAt: 'just now',
+      score: 0,
+      user: data.currentUser,
+      replies: [],
+    };
+    setComments((prev) => [...prev, newComment]);
   };
 
-  setComments((prevComments) => [...prevComments, newComment]);
-};
+  // 7. Delete comment or reply (🔥 smart logic)
+  const deleteComment = (commentId) => {
+    const updatedComments = comments
+      .map((comment) => {
+        if (comment.id === commentId) {
+          return null; // Top-level comment match? Remove it
+        }
 
+        const updatedReplies = comment.replies?.filter(
+          (reply) => reply.id !== commentId
+        );
 
-  // 7. Provide the comments state + update function to any component that needs it
+        // Only return if there are still replies or the comment is untouched
+        return {
+          ...comment,
+          replies: updatedReplies,
+        };
+      })
+      .filter(Boolean); // Remove any `null` top-level comments
+
+    setComments(updatedComments);
+  };
+
   return (
-<CommentsContext.Provider value={{ comments, setComments, addComment }}>
-{children} {/* This renders the wrapped app inside the provider */}
+    <CommentsContext.Provider
+      value={{ comments, setComments, addComment, deleteComment }}
+    >
+      {children}
     </CommentsContext.Provider>
   );
 };
 
-// 8. Custom hook – lets us use the context easily from any component
+// 8. Custom hook
 export const useComments = () => useContext(CommentsContext);
