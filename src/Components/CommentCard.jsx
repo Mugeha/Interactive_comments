@@ -3,11 +3,14 @@ import React from 'react';
 import '../CommentCard.css';
 import data from '../Data/data.json';
 
-const CommentCard = ({ comment }) => {
+// Import at the top
+import CommentCard from './CommentCard';
+
+const CommentCard = ({ comment, isReply = false }) => {
   const isCurrentUser = comment.user.username === data.currentUser.username;
 
   return (
-    <div className="comment-card">
+    <div className={isReply ? 'reply-card' : 'comment-card'}>
       <div className="comment-header">
         <img src={comment.user.image.png} alt="user avatar" className="avatar" />
         <span className="username">{comment.user.username}</span>
@@ -35,8 +38,18 @@ const CommentCard = ({ comment }) => {
           )}
         </div>
       </div>
+
+      {/* 🔁 Render replies recursively if they exist */}
+      {comment.replies && comment.replies.length > 0 && (
+        <div className="replies-thread">
+          {comment.replies.map((reply) => (
+            <CommentCard key={reply.id} comment={reply} isReply={true} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default CommentCard;
