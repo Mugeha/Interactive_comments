@@ -10,6 +10,34 @@ const CommentCard = ({ comment, isReply = false }) => {
   const [replyContent, setReplyContent] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  // EDIT STATE
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(comment.content);
+
+  // Recursive update function
+  const updateCommentContent = (commentsArr, commentId, newContent) => {
+    return commentsArr.map((c) => {
+      if (c.id === commentId) {
+        return { ...c, content: newContent };
+      } else if (c.replies && c.replies.length > 0) {
+        return {
+          ...c,
+          replies: updateCommentContent(c.replies, commentId, newContent),
+        };
+      }
+      return c;
+    });
+  };
+
+  const handleEditSubmit = () => {
+    const trimmed = editContent.trim();
+    if (trimmed === '') return;
+
+    const updated = updateCommentContent(comments, comment.id, trimmed);
+    setComments(updated);
+    setIsEditing(false);
+  };
+
   const addReplyToComment = (commentsArr, commentId, newReply) => {
     return commentsArr.map((c) => {
       if (c.id === commentId) {
@@ -61,10 +89,20 @@ const CommentCard = ({ comment, isReply = false }) => {
         <span className="timestamp">{comment.createdAt}</span>
       </div>
 
-      <p className="comment-content">
-        {comment.replyingTo && <span className="mention">@{comment.replyingTo} </span>}
-        {comment.content}
-      </p>
+      <div className="comment-content">
+        {isEditing ? (
+          <textarea
+            className="edit-input"
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
+          />
+        ) : (
+          <p>
+            {comment.replyingTo && <span className="mention">@{comment.replyingTo} </span>}
+            {comment.content}
+          </p>
+        )}
+      </div>
 
       <div className="comment-footer">
         <div className="score-box">
@@ -75,16 +113,19 @@ const CommentCard = ({ comment, isReply = false }) => {
 
         <div className="action-buttons">
           {isCurrentUser ? (
-            <>
-              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>
-                🗑 Delete
-              </button>
-              <button className="edit-btn">Edit</button>
-            </>
+            isEditing ? (
+              <>
+                <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
+                <button className="send-btn" onClick={handleEditSubmit}>Update</button>
+              </>
+            ) : (
+              <>
+                <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>🗑 Delete</button>
+                <button className="edit-btn" onClick={() => setIsEditing(true)}>Edit</button>
+              </>
+            )
           ) : (
-            <button className="reply-btn" onClick={() => setShowReplyInput(!showReplyInput)}>
-              💬 Reply
-            </button>
+            <button className="reply-btn" onClick={() => setShowReplyInput(!showReplyInput)}>💬 Reply</button>
           )}
         </div>
       </div>
@@ -98,9 +139,7 @@ const CommentCard = ({ comment, isReply = false }) => {
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
           />
-          <button className="send-btn" onClick={handleReplySubmit}>
-            Send
-          </button>
+          <button className="send-btn" onClick={handleReplySubmit}>Send</button>
         </div>
       )}
 
@@ -118,12 +157,8 @@ const CommentCard = ({ comment, isReply = false }) => {
             <h3>Delete comment</h3>
             <p>Are you sure you want to delete this comment? This action can’t be undone.</p>
             <div className="modal-buttons">
-              <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>
-                No, Cancel
-              </button>
-              <button className="confirm-btn" onClick={confirmDelete}>
-                Yes, Delete
-              </button>
+              <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>No, Cancel</button>
+              <button className="confirm-btn" onClick={confirmDelete}>Yes, Delete</button>
             </div>
           </div>
         </div>
