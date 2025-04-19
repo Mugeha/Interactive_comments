@@ -1,6 +1,6 @@
 // CommentCard.jsx
 import React from 'react';
-import './CommentCard.css';
+import '../CommentCard.css';
 import data from '../Data/data.json';
 
 const CommentCard = ({ comment }) => {

@@ -1,6 +1,7 @@
 // 1. Import React and the custom hook to access comments
 import React from 'react';
 import AddComment from './Components/AddComment';
+import CommentCard from './Components/CommentCard';
 import { useComments } from './Context/CommentsContext';
 
 const App = () => {
@@ -13,17 +14,8 @@ const App = () => {
       {/* <h1 className="title">💬 Interactive Comments Section</h1> */}
 
       {comments.map((comment) => (
-        <div key={comment.id} className="comment-box">
-          <div className="comment-header">
-          {/* <span className="username">{comment.user.image.webp}</span> */}
-
-            <span className="username">@{comment.user.username}</span>
-            <span className="created-at">{comment.createdAt}</span>
-          </div>
-          <p className="content">{comment.content}</p>
-          <div className="score">Score: {comment.score}</div>
-        </div>
-      ))}
+  <CommentCard key={comment.id} comment={comment} />
+))}
     </main>
     <AddComment />
     </>
