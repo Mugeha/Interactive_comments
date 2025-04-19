@@ -4,12 +4,12 @@ import data from '../Data/data.json';
 import { useComments } from '../Context/CommentsContext';
 
 const CommentCard = ({ comment, isReply = false }) => {
-  const { comments, setComments } = useComments();
+  const { comments, setComments, deleteComment } = useComments();
   const isCurrentUser = comment.user.username === data.currentUser.username;
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replyContent, setReplyContent] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // 🔁 Recursive helper to add reply
   const addReplyToComment = (commentsArr, commentId, newReply) => {
     return commentsArr.map((c) => {
       if (c.id === commentId) {
@@ -32,7 +32,7 @@ const CommentCard = ({ comment, isReply = false }) => {
     if (trimmed === '') return;
 
     const newReply = {
-      id: Date.now(), // simple unique ID
+      id: Date.now(),
       content: trimmed,
       createdAt: 'just now',
       score: 0,
@@ -45,6 +45,11 @@ const CommentCard = ({ comment, isReply = false }) => {
     setComments(updatedComments);
     setReplyContent('');
     setShowReplyInput(false);
+  };
+
+  const confirmDelete = () => {
+    deleteComment(comment.id);
+    setShowDeleteModal(false);
   };
 
   return (
@@ -71,7 +76,9 @@ const CommentCard = ({ comment, isReply = false }) => {
         <div className="action-buttons">
           {isCurrentUser ? (
             <>
-              <button className="delete-btn">🗑 Delete</button>
+              <button className="delete-btn" onClick={() => setShowDeleteModal(true)}>
+                🗑 Delete
+              </button>
               <button className="edit-btn">Edit</button>
             </>
           ) : (
@@ -97,12 +104,28 @@ const CommentCard = ({ comment, isReply = false }) => {
         </div>
       )}
 
-      {/* 🔁 Replies */}
       {comment.replies && comment.replies.length > 0 && (
         <div className="replies-thread">
           {comment.replies.map((reply) => (
             <CommentCard key={reply.id} comment={reply} isReply={true} />
           ))}
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="delete-modal">
+            <h3>Delete comment</h3>
+            <p>Are you sure you want to delete this comment? This action can’t be undone.</p>
+            <div className="modal-buttons">
+              <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>
+                No, Cancel
+              </button>
+              <button className="confirm-btn" onClick={confirmDelete}>
+                Yes, Delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
