@@ -82,13 +82,14 @@ const CommentCard = ({ comment, isReply = false }) => {
 
   return (
     <div className="comment-card-container">
+     
+
+      <div className={isReply ? 'reply-card' : 'comment-card'}>
       <div className="score-box">
         <button className={`score-btn ${userVote === 1 ? 'voted' : ''}`} onClick={handleUpvote}>+</button>
         <span className="score">{comment.score}</span>
         <button className={`score-btn ${userVote === -1 ? 'voted' : ''}`} onClick={handleDownvote}>-</button>
       </div>
-
-      <div className={isReply ? 'reply-card' : 'comment-card'}>
         <div className="comment-header">
           <img src={comment.user.image.png} alt="avatar" className="avatar" />
           <span className="username">{comment.user.username}</span>
