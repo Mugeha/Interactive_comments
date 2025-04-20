@@ -1,56 +1,102 @@
-/* CommentCard.css */
-.comment-card-containter{
+.comment-card-container {
     display: flex;
-    flex-direction: row;
-}
-
-
-.comment-card {
-    background: white;
-    display: flex;
-
+    gap: 1rem;
     padding: 1rem;
-    margin: 1rem 0;
     border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .comment-card,
+  .reply-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .reply-card {
+    margin-left: 2rem;
+    border-left: 2px solid #eee;
+    padding-left: 1rem;
+  }
+  
+  .score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f6fa;
+    border-radius: 10px;
+    padding: 0.5rem;
+    height: fit-content;
+  }
+  
+  .score-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7c8db0;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .score-btn.voted {
+    color: #5357b6;
+  }
+  
+  .score-btn:hover {
+    color: #5357b6;
+  }
+  
+  .score {
+    font-weight: bold;
+    color: #5357b6;
+    margin: 0.3rem 0;
   }
   
   .comment-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
   }
   
   .avatar {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
   }
   
   .username {
-    font-weight: bold;
-    color: #334155;
+    font-weight: 600;
+    color: #324a64;
   }
   
   .you-tag {
-    background: #5357B6;
+    background-color: #5357b6;
     color: white;
-    font-size: 0.75rem;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
+    font-size: 0.7rem;
   }
   
   .timestamp {
+    color: #7c8db0;
     margin-left: auto;
-    font-size: 0.8rem;
-    color: #94a3b8;
+    font-size: 0.9rem;
   }
   
-  .comment-content {
-    margin: 0.5rem 0;
-    color: #475569;
+  .comment-content p {
+    margin: 0;
+    color: #4b5b75;
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+  
+  .mention {
+    color: #5357b6;
+    font-weight: bold;
   }
   
   .comment-footer {
@@ -59,154 +105,133 @@
     align-items: center;
   }
   
-  .score-box {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    background: #f1f5f9;
-    padding: 0.25rem 0.75rem;
-    border-radius: 8px;
-  }
-  
- /* Add hover + active effect to score buttons */
-.score-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #64748b;
-    cursor: pointer;
-    transition: transform 0.1s ease, color 0.2s ease;
-  }
-  .score-btn:hover {
-    color: #5357B6;
-    transform: scale(1.2);
-  }
-  
-  .score-btn:active {
-    transform: scale(0.95);
-  }
-  .score-btn:focus-visible,
-.reply-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.3);
-  border-radius: 4px;
-}
-
-  
-  .score {
-    font-weight: bold;
-    color: #5357B6;
-
-  }
-  
   .action-buttons button {
     background: none;
     border: none;
     cursor: pointer;
-    font-weight: bold;
-    margin-left: 0.5rem;
+    color: #5357b6;
+    font-weight: 600;
+    margin-left: 1rem;
+    font-size: 0.9rem;
   }
   
-  /* Add similar feedback to the reply button */
-.reply-btn {
-    color: #5357B6;
-    transition: transform 0.1s ease, color 0.2s ease;
+  .reply-input-box {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    align-items: flex-start;
   }
   
-  .reply-btn:hover {
-    color: #3843d0;
-    transform: scale(1.05);
-  }
-  
-  .reply-btn:active {
-    transform: scale(0.95);
-  }
-  
-  .delete-btn {
-    color: #EF4444;
-  }
-  
-  .edit-btn {
-    color: #64748b;
-  }
-  .reply-card {
-    background: #f9fafb;
-    padding: 1rem;
-    margin: 1rem 0 1rem 2rem; /* indented */
-    border-left: 2px solid #e2e8f0;
+  .reply-input,
+  .edit-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
     border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+  }
+  
+  .send-btn,
+  .cancel-btn,
+  .confirm-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .send-btn {
+    background-color: #5357b6;
+    color: white;
+  }
+  
+  .cancel-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .confirm-btn {
+    background-color: #ed6368;
+    color: white;
   }
   
   .replies-thread {
     margin-top: 1rem;
-    margin-left: 2rem;
-    border-left: 2px solid #e2e8f0;
-    padding-left: 1rem;
   }
+  
   .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     z-index: 999;
   }
   
   .delete-modal {
     background: white;
-    border-radius: 10px;
     padding: 2rem;
+    border-radius: 12px;
     max-width: 400px;
-    text-align: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   }
   
   .delete-modal h3 {
-    margin-bottom: 1rem;
-    color: hsl(357, 100%, 70%);
+    margin: 0 0 1rem;
+    color: #324a64;
   }
   
   .delete-modal p {
-    color: #67727e;
+    color: #7c8db0;
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
   }
   
   .modal-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 1rem;
   }
   
-  .cancel-btn,
-  .confirm-btn {
-    flex: 1;
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+  /* Mobile tweaks */
+  @media (max-width: 600px) {
+    .comment-card-container {
+      flex-direction: column;
+    }
+  
+    .score-box {
+      flex-direction: row;
+      justify-content: start;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+    }
+  
+    .comment-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  
+    .reply-card {
+      margin-left: 1rem;
+      padding-left: 0.5rem;
+    }
   }
   
-  .cancel-btn {
-    background: #ccd5e1;
-    color: #32465a;
-  }
-  
-  .confirm-btn {
-    background: hsl(357, 100%, 70%);
-    color: white;
-  }
-  .edit-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 8px;
-    resize: none;
-    border: 1px solid #ccc;
-  }
