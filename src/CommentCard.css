@@ -1,16 +1,66 @@
-/* CommentCard.css */
+/* CommentCard.css - Refactored for modern stacked layout */
+
 .comment-card {
-    background: white;
-    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    background: #fff;
+    padding: 1.25rem;
     margin: 1rem 0;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    align-items: flex-start;
+  }
+  
+  /* Score column on the left */
+  .score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f1f5f9;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #334155;
+    user-select: none;
+  }
+  
+  .score {
+    margin: 0.25rem 0;
+    color: #5357b6;
+    font-size: 1rem;
+  }
+  
+  .score-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: transform 0.1s ease, color 0.2s ease;
+  }
+  .score-btn:hover {
+    color: #5357b6;
+    transform: scale(1.2);
+  }
+  .score-btn:active {
+    transform: scale(0.95);
+  }
+  .score-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.3);
+    border-radius: 4px;
+  }
+  
+  /* Main comment body */
+  .comment-body {
+    flex: 1;
   }
   
   .comment-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
   }
@@ -27,7 +77,7 @@
   }
   
   .you-tag {
-    background: #5357B6;
+    background: #5357b6;
     color: white;
     font-size: 0.75rem;
     padding: 0.2rem 0.5rem;
@@ -41,54 +91,17 @@
   }
   
   .comment-content {
-    margin: 0.5rem 0;
     color: #475569;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
   }
   
+  /* Action buttons */
   .comment-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-  }
-  
-  .score-box {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #f1f5f9;
-    padding: 0.25rem 0.75rem;
-    border-radius: 8px;
-  }
-  
- /* Add hover + active effect to score buttons */
-.score-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #64748b;
-    cursor: pointer;
-    transition: transform 0.1s ease, color 0.2s ease;
-  }
-  .score-btn:hover {
-    color: #5357B6;
-    transform: scale(1.2);
-  }
-  
-  .score-btn:active {
-    transform: scale(0.95);
-  }
-  .score-btn:focus-visible,
-.reply-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.3);
-  border-radius: 4px;
-}
-
-  
-  .score {
-    font-weight: bold;
-    color: #5357B6;
-
+    gap: 1rem;
   }
   
   .action-buttons button {
@@ -96,45 +109,53 @@
     border: none;
     cursor: pointer;
     font-weight: bold;
-    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
   
-  /* Add similar feedback to the reply button */
-.reply-btn {
-    color: #5357B6;
+  .reply-btn {
+    color: #5357b6;
     transition: transform 0.1s ease, color 0.2s ease;
   }
-  
   .reply-btn:hover {
     color: #3843d0;
     transform: scale(1.05);
   }
-  
   .reply-btn:active {
     transform: scale(0.95);
   }
-  
-  .delete-btn {
-    color: #EF4444;
+  .reply-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.3);
+    border-radius: 4px;
   }
   
+  .delete-btn {
+    color: #ef4444;
+  }
   .edit-btn {
     color: #64748b;
   }
+  
+  /* Replies */
   .reply-card {
     background: #f9fafb;
     padding: 1rem;
-    margin: 1rem 0 1rem 2rem; /* indented */
+    margin: 1rem 0 1rem 3rem;
     border-left: 2px solid #e2e8f0;
     border-radius: 8px;
   }
   
   .replies-thread {
     margin-top: 1rem;
-    margin-left: 2rem;
+    margin-left: 3rem;
     border-left: 2px solid #e2e8f0;
     padding-left: 1rem;
   }
+  
+  /* Modal */
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -155,6 +176,18 @@
     max-width: 400px;
     text-align: center;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.25s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
   
   .delete-modal h3 {
@@ -188,11 +221,12 @@
     background: #ccd5e1;
     color: #32465a;
   }
-  
   .confirm-btn {
     background: hsl(357, 100%, 70%);
     color: white;
   }
+  
+  /* Edit textarea */
   .edit-input {
     width: 100%;
     padding: 10px;
@@ -202,6 +236,23 @@
     border: 1px solid #ccc;
   }
   
+  /* Responsive fix for mobile */
+  @media (max-width: 600px) {
+    .comment-card {
+      flex-direction: column;
+      padding: 1rem;
+    }
   
+    .score-box {
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
   
+    .reply-card,
+    .replies-thread {
+      margin-left: 0;
+      padding-left: 0.5rem;
+    }
+  }
   
