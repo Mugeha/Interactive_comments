@@ -1,5 +1,10 @@
 # 💬 Interactive Comments App (Frontend Only)
 
+![Image1](src/Components/image1.png)
+![Image2](src/Components/image2.png)
+![Image3](src/Components/image3.png)
+
+
 This is a React-based comment thread UI that allows users to post, reply, edit, delete, and vote on comments. Inspired by typical social/comment systems, this project is designed to showcase state management, component architecture, and React hooks — all without a backend.
 
 ## 🧠 Features
