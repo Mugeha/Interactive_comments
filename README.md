@@ -46,7 +46,7 @@ Frontend Mentor is a platform that provides real-world frontend challenges to he
 You can view the original challenge here:
 🔗 Interactive Comments Section Challenge - https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9
 
-# 📚 What I Learned
+# 📚 What I Learnt
 State lifting and sharing using context
 
 Recursive rendering of nested components
