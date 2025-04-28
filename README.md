@@ -25,12 +25,12 @@ This is a React-based comment thread UI that allows users to post, reply, edit, 
 ## 📁 File Structure
 
 /src /components CommentCard.js 
-# Reusable component for both comments and replies 
+Reusable component for both comments and replies 
 /context CommentsContext.js 
-# Context API to manage global comment state /data data.json 
-# Contains initial comment thread and user data CommentCard.css 
-# Styling for comment UI App.js
-# Main component rendering the comment thread
+Context API to manage global comment state - /data data.json 
+Contains initial comment thread and user data - CommentCard.css 
+Styling for comment UI - App.js
+Main component rendering the comment thread
 
 
 ## ⚙️ Setup & Run
@@ -46,7 +46,7 @@ Frontend Mentor is a platform that provides real-world frontend challenges to he
 You can view the original challenge here:
 🔗 Interactive Comments Section Challenge - https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9
 
-📚 What I Learned
+# 📚 What I Learned
 State lifting and sharing using context
 
 Recursive rendering of nested components
@@ -55,7 +55,7 @@ Managing modal logic and confirmation flows
 
 React component architecture + clean CSS design
 
-🚀 Future Improvements (Optional)
+# 🚀 Future Improvements (Optional)
 Persist comments with localStorage or backend (e.g., Firebase, Node)
 
 User authentication
