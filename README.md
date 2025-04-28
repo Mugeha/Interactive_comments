@@ -39,12 +39,12 @@ cd interactive-comments-app
 npm install
 npm start
 
-🌍 Frontend Mentor
+## 🌍 Frontend Mentor
 This project is based on a challenge from Frontend Mentor.
 Frontend Mentor is a platform that provides real-world frontend challenges to help you level up your coding skills.
 
 You can view the original challenge here:
-🔗 Interactive Comments Section Challenge - https://chatgpt.com/c/680181f0-e510-8004-bff3-9544ce4a6b08#:~:text=%F0%9F%94%97%20Interactive%20Comments-,Section%20Challenge,-%F0%9F%93%9A%20What%20I%20Learned
+🔗 Interactive Comments Section Challenge - https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9
 
 📚 What I Learned
 State lifting and sharing using context
