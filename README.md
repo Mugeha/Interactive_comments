@@ -5,7 +5,7 @@
 ![Image3](src/Preview/image1.png)
 
 # Walkthrough video
-https://www.loom.com/share/96947bacccf2422ba8e845afc040c89c?sid=bca8f35f-5338-4ca6-936e-d827f084aa80
+https://www.loom.com/share/4fe3a15f1f1c47c0b1198dc55d221e69?sid=d20564dc-b313-4f1b-b4ed-a31b3d070566
 
 
 This is a React-based comment thread UI that allows users to post, reply, edit, delete, and vote on comments. Inspired by typical social/comment systems, this project is designed to showcase state management, component architecture, and React hooks — all without a backend.
